@@ -1,5 +1,3 @@
-package for_assignment01;
-
 public class MovieWallDriver {
 
 	public static void main(String[] args) {
