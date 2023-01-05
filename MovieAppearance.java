@@ -1,5 +1,3 @@
-package for_assignment01;
-
 /**
  * A wrapper class that can be used to print what movie an actor appeared in as which role
  * 
