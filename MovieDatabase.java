@@ -1,5 +1,3 @@
-package for_assignment01;
-
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
