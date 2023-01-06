@@ -22,15 +22,16 @@ public class UserInterface {
 		
 		// Asks user for input
 		System.out.print("Enter the name of an actor (or \"EXIT\" to quit): ");
-		String inp = user.nextLine();
+		String inp = user.nextLine().toLowerCase();
 		
 		// Carries out tasks based on user's input
-		if(inp.compareTo("EXIT") == 0) {
+		if(inp.compareTo("exit") == 0) {
 			return true;
 		} else if(inp != null) {			
 			if(search(database, inp) == false) {
 				if(searchAlt(database, inp) == false) {
 					System.out.println("Actor not found, please try again.");
+					askUser(database);
 				}
 			}
 		}
@@ -52,7 +53,7 @@ public class UserInterface {
 		
 		// Prints the movie wall if the actor was found
 		if(list != null) {
-			System.out.println("Actor: " + inp);
+			System.out.println("Actor: " + nameFormatter(inp));
 			for(int i = 0; i < list.size(); i++) {
 				System.out.println("Movie: " + list.get(i));
 			}
@@ -72,7 +73,6 @@ public class UserInterface {
 	 */
 	public boolean searchAlt(HashMap<String, ArrayList<MovieAppearance>> database, String inp) {
 		char[] chars = inp.toCharArray();
-		boolean ans = false;
 		
 		Iterator<Map.Entry<String, ArrayList<MovieAppearance>>> itr = database.entrySet().iterator();
 		
@@ -91,23 +91,35 @@ public class UserInterface {
 			
 			// If the similarity is high enough, suggest this actor to the user
 			if(count >= 0.75) {
-				System.out.print("Actor not found, did you mean " + actor + " (Y/N): ");
-				String newinp = user.nextLine();
+				System.out.print("Actor not found, did you mean " + nameFormatter(actor) + " (Y/N): ");
+				String newinp = user.nextLine().toUpperCase();
 				while(!(newinp.equals("Y") || newinp.equals("N"))) {
-					System.out.print("Please input (Y/N), did you mean " + actor + " (Y/N): ");
-					newinp = user.nextLine();
+					System.out.print("Please input (Y/N), did you mean " + nameFormatter(actor) + " (Y/N): ");
+					newinp = user.nextLine().toUpperCase();
 				}
 				if(newinp.equals("Y")) {
 					search(database, actor);
-				} else {
-					askUser(database);
+					return true;
 				}
-				ans = true;
 			}
 			
 			count = 0;
 		}
-		return ans;
+		return false;
+	}
+	
+	/**
+	 * Formats an actor's name with capitalization for printing
+	 * @param inp	the name user has input
+	 * @return	the newly formatted name
+	 */
+	public String nameFormatter(String inp) {
+		String[] name = inp.split(" ");
+		inp = "";
+		for(String n:name) {
+			inp += n.substring(0,1).toUpperCase() + n.substring(1) + " ";
+		}
+		return inp.trim();
 	}
 	
 	/**
