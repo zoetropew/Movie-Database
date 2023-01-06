@@ -2,7 +2,7 @@ public class MovieWallDriver {
 
 	public static void main(String[] args) {
 		
-		MovieDatabase database = new MovieDatabase(movie-dataset.csv); // reads the file and fills in the database
+		MovieDatabase database = new MovieDatabase("movie-dataset.csv"); // reads the file and fills in the database
 		
 		UserInterface ui = new UserInterface();
 		
