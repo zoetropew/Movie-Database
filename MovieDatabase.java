@@ -58,12 +58,12 @@ public class MovieDatabase {
 						
 						// If the actor has been added to the database already, add their new MovieAppearance to their ArrayList,
 						// if they have not already been added, create a new MovieAppearance ArrayList for them and add them
-						ArrayList<MovieAppearance> wall = database.get((String) ((JSONObject)arr.get(i)).get("name"));
+						ArrayList<MovieAppearance> wall = database.get(((String) ((JSONObject)arr.get(i)).get("name")).toLowerCase());
 						if(wall == null) {
 							wall = new ArrayList<MovieAppearance>();
 						}
 						wall.add(movie);
-						database.put((String) ((JSONObject)arr.get(i)).get("name"), wall);
+						database.put(((String) ((JSONObject)arr.get(i)).get("name")).toLowerCase(), wall);
 					}
 				}
 				
